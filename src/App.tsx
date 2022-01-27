@@ -33,7 +33,7 @@ const createApi = (host: string, code: string) =>
   _.memoize(
     (): UrbitInterface => {
       const urb = new Urbit(host, code);
-      urb.ship = "zod";
+      urb.ship = "lux";
       // urb
       //   .connect()
       //   .then((response) => alert("success").catch((err) => console.log(err)));
@@ -325,7 +325,9 @@ const App = () => {
     // Notice below that we use the deSig function. Different API functions have different formatting processes
     // deSig will remove the ~ from the ship name because deleteGraph is instructed to add one. Without deSig we would
     // end up with "~~zod"
-    urb.thread(deleteGraph(deSig(channelResource.ship), channelResource.name));
+    
+    const desigedShip: string = deSig(channelResource.ship) || '';
+    urb.thread(deleteGraph(desigedShip, channelResource.name));
     window.confirm(`Removed channel ${channel}`);
     window.location.reload();
   }
